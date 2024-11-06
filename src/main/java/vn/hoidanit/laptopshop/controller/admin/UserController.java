@@ -1,4 +1,4 @@
-package vn.hoidanit.laptopshop.controller;
+package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class UserController {
         model.addAttribute("users1", users);
         // users: Giá trị gán vào
         // users1: Giá trị nhận được bên view
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/create")
@@ -68,7 +68,7 @@ public class UserController {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("id", id);
-        return "admin/user/show";
+        return "admin/user/detail";
     }
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
