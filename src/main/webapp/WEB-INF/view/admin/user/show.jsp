@@ -21,7 +21,7 @@
                 <div id="layoutSidenav_content">
                     <main>
                         <div class="container-fluid px-4">
-                            <h1 class="mt-4">Dashboard</h1>
+                            <h1 class="mt-4">Manage Users</h1>
                             <ol class="breadcrumb mb-4">
                                 <li class="breadcrumb-item active"><a href="/admin">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Users</li>
@@ -42,6 +42,7 @@
                                                         <th scope="col">ID</th>
                                                         <th scope="col">Email</th>
                                                         <th scope="col">Full Name</th>
+                                                        <th scope="col">Role</th>
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
@@ -51,6 +52,7 @@
                                                             <th>${user.id}</th>
                                                             <td>${user.email}</td>
                                                             <td>${user.fullName}</td>
+                                                            <td>${user.role.name}</td>
                                                             <td>
                                                                 <a href="/admin/user/${user.id}"
                                                                     class="btn btn-success">View</a>
