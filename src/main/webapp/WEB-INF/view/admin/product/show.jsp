@@ -47,25 +47,25 @@
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <!-- <tbody>
-                                                    <c:forEach var="user" items="${users1}">
+                                                <tbody>
+                                                    <c:forEach var="product" items="${products}">
                                                         <tr>
-                                                            <th>${user.id}</th>
-                                                            <td>${user.email}</td>
-                                                            <td>${user.fullName}</td>
-                                                            <td>${user.role.name}</td>
+                                                            <th>${product.id}</th>
+                                                            <td>${product.name}</td>
+                                                            <td>${product.price}</td>
+                                                            <td>${product.factory}</td>
                                                             <td>
-                                                                <a href="/admin/user/${user.id}"
+                                                                <a href="/admin/product/${product.id}"
                                                                     class="btn btn-success">View</a>
-                                                                <a href="/admin/user/update/${user.id}"
+                                                                <a href="/admin/product/update/${product.id}"
                                                                     class="btn btn-warning mx-2">Update</a>
-                                                                <a href="/admin/user/delete/${user.id}"
+                                                                <a href="/admin/product/delete/${product.id}"
                                                                     class="btn btn-danger">Delete</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
 
-                                                </tbody> -->
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
