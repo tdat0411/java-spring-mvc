@@ -16,19 +16,20 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> fetchProducts() {
-        return this.productRepository.findAll();
-    }
-
     public Product createProduct(Product pr) {
         return this.productRepository.save(pr);
     }
 
-    public Product getProductById(long id) {
+    public List<Product> fetchProducts() {
+        return this.productRepository.findAll();
+    }
+
+    public Optional<Product> fetchProductById(long id) {
         return this.productRepository.findById(id);
     }
 
     public void deleteProduct(long id) {
         this.productRepository.deleteById(id);
     }
+
 }
