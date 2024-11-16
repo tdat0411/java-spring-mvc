@@ -23,7 +23,7 @@ public class User {
     private long id;
 
     @NotNull
-    @Email(message = "Email khong hop le", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[azA-Z0-9.-]+$")
+    @Email(message = "Email khong hop le", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     @NotNull
@@ -33,6 +33,7 @@ public class User {
     @NotNull
     @Size(min = 2, message = "Fullname phai co toi thieu 2 ky tu")
     private String fullName;
+
     private String address;
     private String phone;
 

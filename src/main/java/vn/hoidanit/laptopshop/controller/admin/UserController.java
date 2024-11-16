@@ -39,7 +39,7 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        List<User> arrUsers = this.userService.getAllUserByEmail("1@gmail.com");
+        List<User> arrUsers = this.userService.getAllUsersByEmail("1@gmail.com");
         System.out.println(arrUsers);
         model.addAttribute("eric", "test");
         return "hello";
@@ -47,7 +47,7 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
-        List<User> users = this.userService.getAllUser();
+        List<User> users = this.userService.getAllUsers();
         model.addAttribute("users1", users);
         // users: Giá trị gán vào
         // users1: Giá trị nhận được bên view
@@ -121,7 +121,7 @@ public class UserController {
 
     @PostMapping("/admin/user/delete")
     public String postDeleteUser(Model model, @ModelAttribute("newUser") User trandat) {
-        this.userService.deleteUser(trandat.getId());
+        this.userService.deleteAUser(trandat.getId());
         return "redirect:/admin/user";
     }
 
