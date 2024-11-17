@@ -89,10 +89,12 @@ public class UserController {
             BindingResult newUserBindingResult,
             @RequestParam("tiendatFile") MultipartFile file) {
 
-        List<FieldError> errors = newUserBindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(">>>>" + error.getField() + " - " + error.getDefaultMessage());
-        }
+        // List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(">>>>" + error.getField() + " - " +
+        // error.getDefaultMessage());
+        // }
+
         // validate
         if (newUserBindingResult.hasErrors()) {
             return "admin/user/create";
