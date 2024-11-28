@@ -144,41 +144,51 @@ public class ProductService {
 
     public void handlePlaceOrder(User user, HttpSession session, String receiverName, String receiverAddress,
             String receiverPhone) {
-        // create order
-        Order order = new Order();
-        order.setUser(user);
-        order.setReceiverName(receiverName);
-        order.setReceicerAddress(receiverAddress);
-        order.setReceiverPhone(receiverPhone);
-        order = this.orderRepository.save(order);
 
-        // create orderDetail
         // Bước 1: get cart by user
         Cart cart = this.cartRepository.findByUser(user);
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();// Lấy hết sản phẩm trong giỏ hàng
 
             if (cartDetails != null) {
-                for (CartDetail cd : cartDetails) {
+
+                // create order
+                Order order = new Order();
+                order.setUser(user);
+                order.setReceiverName(receiverName);
+                order.setReceicerAddress(receiverAddress);
+                order.setReceiverPhone(receiverPhone);
+                order.setStatus("PENDING");
+
+                double sum = 0;
+                for (CartDetail cartDetail : cartDetails) {
+                    sum += cartDetail.getPrice();
+                }
+
+                order.setTotalPrice(sum);
+                order = this.orderRepository.save(order);
+
+                // create orderDetail
+                for (CartDetail cartDetail : cartDetails) {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
-                    orderDetail.setQuantity(cd.getQuantity());
-                    orderDetail.setPrice(cd.getPrice());
-                    orderDetail.setProduct(cd.getProduct());
+                    orderDetail.setPrice(cartDetail.getPrice());
+                    orderDetail.setProduct(cartDetail.getProduct());
+                    orderDetail.setQuantity(cartDetail.getQuantity());
 
                     this.orderDetailRepository.save(orderDetail);
                 }
+
+                // Bước 2: Xóa CartDetail và Cart
+                for (CartDetail cd : cartDetails) {
+                    this.cartDetailRepository.deleteById(cd.getId());
+                }
+
+                this.cartRepository.deleteById(cart.getId());
+
+                // Bước 3: Update session
+                session.setAttribute("sum", 0);
             }
-
-            // Bước 2: Xóa CartDetail và Cart
-            for (CartDetail cd : cartDetails) {
-                this.cartDetailRepository.deleteById(cd.getId());
-            }
-
-            this.cartRepository.deleteById(cart.getId());
-
-            // Bước 3: Update session
-            session.setAttribute("sum", 0);
         }
 
     }
