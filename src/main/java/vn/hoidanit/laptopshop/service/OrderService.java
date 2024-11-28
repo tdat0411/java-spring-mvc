@@ -15,21 +15,23 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderDetailRepository orderDetailRepository) {
-        this.orderRepository = orderRepository;
+    public OrderService(
+            OrderRepository orderRepository,
+            OrderDetailRepository orderDetailRepository) {
         this.orderDetailRepository = orderDetailRepository;
+        this.orderRepository = orderRepository;
     }
 
-    public List<Order> fetchOrders() {
+    public List<Order> fetchAllOrders() {
         return this.orderRepository.findAll();
     }
 
-    public Optional<Order> fetchOrderById(Long id) {
+    public Optional<Order> fetchOrderById(long id) {
         return this.orderRepository.findById(id);
     }
 
     public void deleteOrderById(long id) {
-        // delete orderDetail
+        // delete order detail
         Optional<Order> orderOptional = this.fetchOrderById(id);
         if (orderOptional.isPresent()) {
             Order order = orderOptional.get();
@@ -50,5 +52,4 @@ public class OrderService {
             this.orderRepository.save(currentOrder);
         }
     }
-
 }

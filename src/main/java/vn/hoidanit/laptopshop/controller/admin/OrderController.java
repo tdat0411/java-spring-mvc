@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import vn.hoidanit.laptopshop.domain.Order;
-import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.OrderService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class OrderController {
+
     private final OrderService orderService;
 
     public OrderController(OrderService orderService) {
@@ -25,8 +22,8 @@ public class OrderController {
     }
 
     @GetMapping("/admin/order")
-    public String getOrder(Model model) {
-        List<Order> orders = this.orderService.fetchOrders();
+    public String getDashboard(Model model) {
+        List<Order> orders = this.orderService.fetchAllOrders();
         model.addAttribute("orders", orders);
         return "admin/order/show";
     }
@@ -36,7 +33,7 @@ public class OrderController {
         Order order = this.orderService.fetchOrderById(id).get();
         model.addAttribute("order", order);
         model.addAttribute("id", id);
-        model.addAttribute("orderDetail", order.getOrderDetails());
+        model.addAttribute("orderDetails", order.getOrderDetails());
         return "admin/order/detail";
     }
 
@@ -48,7 +45,7 @@ public class OrderController {
     }
 
     @PostMapping("/admin/order/delete")
-    public String postDeleteOrder(Model model, @ModelAttribute("newOrder") Order order) {
+    public String postDeleteOrder(@ModelAttribute("newOrder") Order order) {
         this.orderService.deleteOrderById(order.getId());
         return "redirect:/admin/order";
     }
@@ -61,9 +58,8 @@ public class OrderController {
     }
 
     @PostMapping("/admin/order/update")
-    public String postUpdateOrder(@ModelAttribute("newOrder") Order order) {
+    public String handleUpdateOrder(@ModelAttribute("newOrder") Order order) {
         this.orderService.updateOrder(order);
         return "redirect:/admin/order";
     }
-
 }
