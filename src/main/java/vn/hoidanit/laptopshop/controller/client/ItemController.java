@@ -78,7 +78,8 @@ public class ItemController {
     }
 
     @GetMapping("/products")
-    public String getProductPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+    public String getProductPage(Model model, @RequestParam("page") Optional<String> pageOptional,
+            @RequestParam("name") Optional<String> nameOptional) {
         int page = 1;
         try {
             if (pageOptional.isPresent()) { // có truyền lên tham số page hay không
@@ -91,8 +92,10 @@ public class ItemController {
             // page = 1
             // TODO: handle exception
         }
+
+        String name = nameOptional.get();
         Pageable pageable = PageRequest.of(page - 1, 6);
-        Page<Product> prs = this.productService.fetchProducts(pageable);
+        Page<Product> prs = this.productService.fetchProductsWithSpec(pageable, name);
         List<Product> listProducts = prs.getContent();
         model.addAttribute("products", listProducts);
         model.addAttribute("currentPage", page);
